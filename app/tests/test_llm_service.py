@@ -1,7 +1,5 @@
-import pytest
 from unittest.mock import patch
 
-@pytest.mark.asyncio
 async def test_compare_llms(llm_service, mocker):
     mock_call_llm_api = mocker.patch.object(llm_service, 'call_llm_api')
     mock_call_llm_api.side_effect = [

@@ -6,7 +6,7 @@ from app.api.v1.endpoints import router
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.include_router(router, prefix="/api/v1")
+# app.include_router(router, prefix="/api/v1")
 
 html = f"""
 <!DOCTYPE html>

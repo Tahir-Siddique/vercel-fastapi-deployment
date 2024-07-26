@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends
 from fastapi.responses import JSONResponse
 from app.shemas.prompt import LLMResponse, PromptRequest
 from app.utils.auth import get_api_key
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @router.post("/compare-llms", response_model=LLMResponse)
-async def get_llm_responses(prompt_request: PromptRequest, api_key: str = Depends(get_api_key)):
+async def get_llm_responses(prompt_request: PromptRequest, background_tasks: BackgroundTasks, api_key: str = Depends(get_api_key)):
     try:
         prompt_responses = await llm_service.compare_llms(prompt_request.prompt)
         return JSONResponse(await storage_service.save_responses({"prompt": prompt_request.prompt, "responses": prompt_responses}))

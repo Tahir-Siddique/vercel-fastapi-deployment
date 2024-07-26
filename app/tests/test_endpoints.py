@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from app.main import app
+from app.__main import app
 from services.llm_service import LLMService
 from services.storage_service import StorageService
 from api.v1.endpoints import router as api_router

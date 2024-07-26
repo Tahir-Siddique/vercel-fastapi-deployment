@@ -1,16 +1,37 @@
-from fastapi import FastAPI
-from api.v1.endpoints import router as api_router
-from fastapi.responses import JSONResponse
-from os import getenv
+from time import time
+from fastapi import FastAPI, __version__
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from app.api.v1.endpoints import router
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.include_router(router, prefix="/api/v1")
 
-app.include_router(api_router, prefix="/api/v1")
+html = f"""
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FastAPI on Vercel</title>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <div class="bg-gray-200 p-4 rounded-lg shadow-lg">
+            <h1>Hello from FastAPI@{__version__}</h1>
+            <ul>
+                <li><a href="/docs">/docs</a></li>
+                <li><a href="/redoc">/redoc</a></li>
+            </ul>
+            <p>Powered by <a href="https://vercel.com" target="_blank">Vercel</a></p>
+        </div>
+    </body>
+</html>
+"""
 
 @app.get("/")
 async def root():
-    return JSONResponse({"message": "Hello, this is the LLM comparison api."})
+    return HTMLResponse(html)
 
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=int(getenv("PORT", 8000)), reload=True)
+@app.get('/ping')
+async def hello():
+    return {'res': 'pong', 'version': __version__, "time": time()}

@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
-from shemas.prompt import LLMResponse, PromptRequest
-from utils.auth import get_api_key
-from services.llm_service import LLMService
-from services.storage_service import StorageService
+from app.shemas.prompt import LLMResponse, PromptRequest
+from app.utils.auth import get_api_key
+from app.services.llm_service import LLMService
+from app.services.storage_service import StorageService
 import logging
 
 router = APIRouter()

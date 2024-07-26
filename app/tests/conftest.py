@@ -1,7 +1,7 @@
 import pytest
 from dotenv import load_dotenv
-from services.llm_service import LLMService
-from services.storage_service import StorageService
+from app.services.llm_service import LLMService
+from app.services.storage_service import StorageService
 
 def pytest_configure(config):
     load_dotenv('.env.test') 

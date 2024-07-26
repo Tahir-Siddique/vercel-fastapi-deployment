@@ -23,6 +23,7 @@ pydantic==2.8.2
 pydantic_core==2.20.1
 Pygments==2.18.0
 pytest==8.3.2
+pytest-asyncio==0.23.8
 pytest-mock==3.14.0
 python-dotenv==1.0.1
 python-multipart==0.0.9
@@ -37,5 +38,6 @@ typing_extensions==4.12.2
 urllib3==2.2.2
 uvicorn==0.30.3
 uvloop==0.19.0
+vercel_blob==0.2.5
 watchfiles==0.22.0
 websockets==12.0

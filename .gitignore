@@ -5,3 +5,4 @@ venv
 *.py[cod]
 *.env
 .vercel
+.DS_Store

@@ -1,15 +1,14 @@
-import os
+import json
+import uuid
 from dotenv import load_dotenv
-import requests
+import vercel_blob
 
 load_dotenv()
-
-VERCEL_BLOB_STORAGE_URL = os.getenv("VERCEL_BLOB_STORAGE_URL")
 
 class StorageService:
     async def save_responses(self, data: dict):
         try:
-            response = requests.post(VERCEL_BLOB_STORAGE_URL, json=data)
-            return response.json()
-        except:
-            return data
+            data["blob_url"] = vercel_blob.put(str(uuid.uuid4(), json.dumps(data).encode('utf-8')))
+        except Exception as e:
+            data["blob_url"] = str(e)
+        return data
